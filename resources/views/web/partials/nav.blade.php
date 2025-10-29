@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">ArtCode.com</a>
+        <a class="navbar-brand" href="#!">DiscZone.com</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
                 class="navbar-toggler-icon"></span></button>
@@ -8,6 +8,24 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Inicio</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Acerca</a></li>
+
+                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">Tipo</a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Vinillos</a></li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                            <li><a class="dropdown-item" href="#">CD's</a></li>
+                            <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                            <li><a class="dropdown-item" href="#">Casetes</a></li>
+                            <li>
+
+                            
+                </ul>
+                    </li>
 
                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">Categoria</a>
@@ -37,6 +55,7 @@
                             <hr class="dropdown-divider" />
                         </li>
                             <li><a class="dropdown-item" href="#">Banda Sonora</a></li>
+                            <li>
                             
                 </ul>
                     </li>

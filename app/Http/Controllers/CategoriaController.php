@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Producto;
-use App\Http\Requests\ProductoRequest;
+use App\Models\Categoria;
+use Spatie\Permission\Models\Permission;
+use App\Http\Requests\CategoriaRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Support\Str;
 
 
-class ProductoController extends Controller
+class CategoriaController extends Controller
 {
     use AuthorizesRequests;
     /**
@@ -19,7 +19,7 @@ class ProductoController extends Controller
     {
         $this->authorize('categoria-list'); 
         $texto=$request->input('texto');
-        $registros=Producto::where('nombre', 'like',"%{$texto}%")
+        $registros=Categoria::where('nombre', 'like',"%{$texto}%")
                     ->orWhere('codigo', 'like',"%{$texto}%")
                     ->orderBy('id', 'desc')
                     ->paginate(10);
@@ -38,14 +38,14 @@ class ProductoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductoRequest $request)
+    public function store(CategoriaRequest $request)
     {
         $this->authorize('categoria-create'); 
-        $registro = new Producto();
+        $registro = new Categoria();
         $registro->codigo=$request->input('name');
         $registro->nombre=$request->input('description');
         $registro->save();
-        return redirect()->route('productos.index')->with('mensaje', 'Registro '.$registro->nombre. '  agregado correctamente');
+        return redirect()->route('categoria.index')->with('mensaje', 'Registro '.$registro->nombre. '  agregado correctamente');
     }
 
     /**
@@ -59,53 +59,36 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        $this->authorize('categoria-edit'); 
-        $registro=Producto::findOrFail($id);
-        return view('producto.action', compact('registro'));
+        $this->authorize('user-edit'); 
+        $categorias=Categoria::all();
+        $registro=Categoria::findOrFail($id);
+        return view('usuario.action', compact('registro','categorias'));
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductoRequest $request, $id)
+    public function update(CategoriaRequest $request)
     {
-        $this->authorize('categoria-edit'); 
-        $registro=Producto::findOrFail($id);
-        $registro->codigo=$request->input('codigo');
-        $registro->nombre=$request->input('nombre');
-        $registro->precio=$request->input('precio');
-        $registro->descripcion=$request->input('descripcion');
-        $sufijo=strtolower(Str::random(2));
-        $image = $request->file('imagen');
-        if (!is_null($image)){            
-            $nombreImagen=$sufijo.'-'.$image->getClientOriginalName();
-            $image->move('uploads/productos', $nombreImagen);
-            $old_image = 'uploads/productos/'.$registro->imagen;
-            if (file_exists($old_image)) {
-                @unlink($old_image);
-            }
-            $registro->imagen = $nombreImagen;
-        }
-
+        $this->authorize('categoria-create'); 
+        $registro=new Categoria();
+        $registro->name=$request->input('name');
+        $registro->email=$request->input('description');
         $registro->save();
 
-        return redirect()->route('productos.index')->with('mensaje', 'Registro '.$registro->nombre. '  actualizado correctamente');
+        return redirect()->route('categoria.index')->with('mensaje', 'Registro '.$registro->name. '  agregado correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $this->authorize('categoria-delete');
-        $registro=Producto::findOrFail($id);
-        $old_image = 'uploads/productos/'.$registro->imagen;
-        if (file_exists($old_image)) {
-            @unlink($old_image);
-        }
+        $registro=Categoria::findOrFail($id);
         $registro->delete();
-        return redirect()->route('productos.index')->with('mensaje', $registro->nombre. ' eliminado correctamente.');
+
+        return redirect()->route('categroia.index')->with('mensaje', $registro->name. ' eliminado correctamente.');
     }
 }

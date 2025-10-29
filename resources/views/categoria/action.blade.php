@@ -12,7 +12,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form action="{{ isset($registro)?route('categoria.update', $registro->id) : route('usuarios.store')}}" method="POST" id="formRegistroUsuario">
+                        <form action="{{ isset($registro)?route('categoria.update', $registro->id) : route('categoria.store')}}" method="POST" id="formRegistroCategoria">
                             @csrf
                             @if(isset($registro))
                                 @method('PUT')
@@ -37,7 +37,7 @@
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button type="button" class="btn btn-secondary me-md-2"
-                                    onclick="window.location.href='{{route('usuarios.index')}}'">Cancelar</button>
+                                    onclick="window.location.href='{{route('usuarios.index')}}';">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </form>
@@ -59,6 +59,6 @@
 @push('scripts')
 <script>
     document.getElementById('mnuSeguridad').classList.add('menu-open');
-    document.getElementById('itemUsuario').classList.add('active');
+    document.getElementById('itemCategoria').classList.add('active');
 </script>
 @endpush

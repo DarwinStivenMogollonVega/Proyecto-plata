@@ -73,8 +73,8 @@
                                                     @endif
                                                 </td>
                                             </tr>
-                                            @can('rol-delete')
-                                                @include('role.delete')
+                                            @can('categoria-delete')
+                                                @include('categoria.delete')
                                             @endcan
                                         @endforeach
                                     @endif
