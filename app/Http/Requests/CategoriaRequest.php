@@ -22,21 +22,21 @@ class CategoriaRequest extends FormRequest
     public function rules(): array
     {
         $method = $this->method();
-        $id = $this->route('producto');
+        $id = $this->route('categoria');
 
         $rules = [
-            'nombre' => ['required', 'string', 'max:100'],
-            'descripcion' => ['nullable', 'string', 'max:1000'],
+            'name' => ['required', 'string', 'max:100'],
+            'description' => ['nullable', 'string', 'max:1000'],
         ];
         return $rules;
     }
     public function messages(): array
     {
         return [
-            'nombre.required' => 'El nombre del producto es obligatorio.',
-            'nombre.max' => 'El nombre no puede tener más de 255 caracteres.',
+            'name.required' => 'El nombre del producto es obligatorio.',
+            'name.max' => 'El nombre no puede tener más de 255 caracteres.',
 
-            'descripcion.max' => 'La descripción no puede tener más de 1000 caracteres.',
+            'description.max' => 'La descripción no puede tener más de 1000 caracteres.',
         ];
     }
 }

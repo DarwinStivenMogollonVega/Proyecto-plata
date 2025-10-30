@@ -49,7 +49,9 @@ class CategoriaController extends Controller
 
         // 🔹 OJO: el nombre de la ruta correcta es 'categorias.index', no 'categoria.index'
         return redirect()->route('categorias.index')
-            ->with('mensaje', 'Registro ' . $registro->nombre . ' agregado correctamente');
+            ->with('mensaje', 'registro ' . $registro->nombre . ' agregado correctamente');
+            
+            dd('Guardado', $registro);
     }
 
     /**

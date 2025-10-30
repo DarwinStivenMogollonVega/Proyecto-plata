@@ -60,18 +60,9 @@
                                                             data-bs-target="#modal-eliminar-{{$reg->id}}"><i class="bi bi-trash-fill"></i>
                                                     </button>
                                                     @endcan
-                                                </td>
                                                 <td>{{$reg->id}}</td>
                                                 <td>{{$reg->nombre}}</td>
                                                 <td>{{$reg->descripcion}}</td>
-                                                    @if($reg->permissions->isNotEmpty())
-                                                        {!! $reg->permissions->pluck('name')->map(function($name) {
-                                                            return "<span class='badge bg-primary me-1'>$name</span>";
-                                                        })->implode(' ') !!}
-                                                    @else
-                                                        <span class="badge bg-secondary">Sin permisos</span>
-                                                    @endif
-                                                </td>
                                             </tr>
                                             @can('categoria-delete')
                                                 @include('categoria.delete')
