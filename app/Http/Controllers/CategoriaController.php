@@ -4,30 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Categoria;
-use Spatie\Permission\Models\Permission;
 use App\Http\Requests\CategoriaRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-
 
 class CategoriaController extends Controller
 {
     use AuthorizesRequests;
+
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de categorías.
      */
     public function index(Request $request)
     {
         $this->authorize('categoria-list'); 
-        $texto=$request->input('texto');
-        $registros=Categoria::where('nombre', 'like',"%{$texto}%")
-                    ->orWhere('codigo', 'like',"%{$texto}%")
-                    ->orderBy('id', 'desc')
-                    ->paginate(10);
-        return view('categoria.index', compact('registros','texto'));
+
+        $texto = $request->input('texto');
+        $registros = Categoria::where('nombre', 'like', "%{$texto}%")
+            ->orderBy('id', 'desc')
+            ->paginate(3);
+
+        return view('categoria.index', compact('registros', 'texto'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear una nueva categoría.
      */
     public function create()
     {
@@ -36,59 +36,61 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda una nueva categoría en la base de datos.
      */
     public function store(CategoriaRequest $request)
     {
         $this->authorize('categoria-create'); 
+
         $registro = new Categoria();
-        $registro->codigo=$request->input('name');
-        $registro->nombre=$request->input('description');
+        $registro->nombre = $request->input('name');
+        $registro->descripcion = $request->input('description');
         $registro->save();
-        return redirect()->route('categoria.index')->with('mensaje', 'Registro '.$registro->nombre. '  agregado correctamente');
+
+        // 🔹 OJO: el nombre de la ruta correcta es 'categorias.index', no 'categoria.index'
+        return redirect()->route('categorias.index')
+            ->with('mensaje', 'Registro ' . $registro->nombre . ' agregado correctamente');
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar una categoría existente.
      */
     public function edit($id)
     {
-        $this->authorize('user-edit'); 
-        $categorias=Categoria::all();
-        $registro=Categoria::findOrFail($id);
-        return view('usuario.action', compact('registro','categorias'));
+        $this->authorize('categoria-edit'); // 🔹 Corrige el permiso
+
+        $registro = Categoria::findOrFail($id);
+        return view('categoria.action', compact('registro'));
     }
+
     /**
-     * Update the specified resource in storage.
+     * Actualiza una categoría existente.
      */
-    public function update(CategoriaRequest $request)
+    public function update(CategoriaRequest $request, $id)
     {
-        $this->authorize('categoria-create'); 
-        $registro=new Categoria();
-        $registro->name=$request->input('name');
-        $registro->email=$request->input('description');
+        $this->authorize('categoria-edit'); // 🔹 Corrige el permiso
+
+        $registro = Categoria::findOrFail($id);
+        $registro->nombre = $request->input('name');
+        $registro->descripcion = $request->input('description');
         $registro->save();
 
-        return redirect()->route('categoria.index')->with('mensaje', 'Registro '.$registro->name. '  agregado correctamente');
+        return redirect()->route('categorias.index')
+            ->with('mensaje', 'Registro ' . $registro->nombre . ' actualizado correctamente');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una categoría.
      */
     public function destroy($id)
     {
         $this->authorize('categoria-delete');
-        $registro=Categoria::findOrFail($id);
+
+        $registro = Categoria::findOrFail($id);
         $registro->delete();
 
-        return redirect()->route('categroia.index')->with('mensaje', $registro->name. ' eliminado correctamente.');
+        // 🔹 Corrige el nombre de la ruta
+        return redirect()->route('categorias.index')
+            ->with('mensaje', 'Registro ' . $registro->nombre . ' eliminado correctamente');
     }
 }

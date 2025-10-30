@@ -12,7 +12,9 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form action="{{ isset($registro)?route('categoria.update', $registro->id) : route('categoria.store')}}" method="POST" id="formRegistroCategoria">
+                      <form action="{{ isset($registro) ? route('categorias.update', $registro->id) : route('categorias.store') }}" 
+                         method="POST" id="formRegistroCategoria">
+
                             @csrf
                             @if(isset($registro))
                                 @method('PUT')
@@ -26,18 +28,18 @@
                                         <small class="text-danger">{{$message}}</small>
                                      @enderror
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="email" class="form-label">Descripcion</label>
-                                    <input type="text" class="form-control @error('email') is-invalid @enderror"
-                                     id="description" name="description" value="{{old('email',  $registro->email ??'')}}" required>
-                                     @error('email')
+                                <div class="col-md-8 mb-3">
+                                    <label for="description" class="form-label">Descripción</label>
+                                    <textarea name="description" class="form-control" id="description" 
+                                    rows="4">{{ old('description', $registro->descripcion ?? '') }}</textarea>
+                                     @error('description')
                                         <small class="text-danger">{{$message}}</small>
                                      @enderror
                                 </div>
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button type="button" class="btn btn-secondary me-md-2"
-                                    onclick="window.location.href='{{route('usuarios.index')}}';">Cancelar</button>
+                                    onclick="window.location.href='{{route('categorias.index')}}';">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </form>

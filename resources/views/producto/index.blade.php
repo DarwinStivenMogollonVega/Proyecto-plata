@@ -40,7 +40,7 @@
                                         <th style="width: 150px">Opciones</th>
                                         <th style="width: 20px">ID</th>
                                         <th>Código</th>
-                                        <th>Nobre</th>
+                                        <th>Nombre</th>
                                         <th>Precio</th>
                                         <th>Imagen</th>
                                     </tr>
