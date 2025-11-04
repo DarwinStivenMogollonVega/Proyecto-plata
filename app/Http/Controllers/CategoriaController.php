@@ -46,8 +46,7 @@ class CategoriaController extends Controller
         $registro->nombre = $request->input('name');
         $registro->descripcion = $request->input('description');
         $registro->save();
-
-        // 🔹 OJO: el nombre de la ruta correcta es 'categorias.index', no 'categoria.index'
+          
         return redirect()->route('categorias.index')
             ->with('mensaje', 'registro ' . $registro->nombre . ' agregado correctamente');
             

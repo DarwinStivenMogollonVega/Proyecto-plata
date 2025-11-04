@@ -42,6 +42,7 @@
                                         <th>Código</th>
                                         <th>Nombre</th>
                                         <th>Precio</th>
+                                        <th>Categoria</th>
                                         <th>Imagen</th>
                                     </tr>
                                 </thead>
@@ -67,6 +68,14 @@
                                                 <td>{{$reg->codigo}}</td>
                                                 <td>{{$reg->nombre}}</td>
                                                 <td>{{$reg->precio}}</td>
+                        
+                        <td>
+     @if($reg->categoria)
+        <span class="badge bg-primary">{{ $reg->categoria->nombre }}</span>
+     @else
+        <span class="badge bg-secondary">Sin Categoría</span>
+     @endif
+                       </td>
                                                 <td>
                                                 @if($reg->imagen)
                                                     <img src="{{ asset('uploads/productos/' . $reg->imagen) }}" alt="{{ $reg->nombre }}" style="max-width: 150px; height: auto;">

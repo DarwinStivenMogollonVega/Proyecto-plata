@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\Categoria;
 use App\Http\Requests\ProductoRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Str;
@@ -19,10 +20,11 @@ class ProductoController extends Controller
     {
         $this->authorize('producto-list'); 
         $texto=$request->input('texto');
-        $registros=Producto::where('nombre', 'like',"%{$texto}%")
-                    ->orWhere('codigo', 'like',"%{$texto}%")
+        $registros=Producto::with('categoria')
+        ->where('nombre', 'like',"%{$texto}%")
+                   ->orWhere('codigo', 'like',"%{$texto}%")
                     ->orderBy('id', 'desc')
-                    ->paginate(10);
+                    ->paginate(3);
         return view('producto.index', compact('registros','texto'));
     }
 
@@ -32,7 +34,8 @@ class ProductoController extends Controller
     public function create()
     {
         $this->authorize('producto-create'); 
-        return view('producto.action');
+        $categorias = Categoria::all();
+        return view('producto.action', compact ('categorias'));
     }
 
     /**
@@ -45,6 +48,7 @@ class ProductoController extends Controller
         $registro->codigo=$request->input('codigo');
         $registro->nombre=$request->input('nombre');
         $registro->precio=$request->input('precio');
+        $registro->categoria_id = $request->input('categoria_id');
         $registro->descripcion=$request->input('descripcion');
         $sufijo=strtolower(Str::random(2));
         $image = $request->file('imagen');
@@ -72,8 +76,9 @@ class ProductoController extends Controller
     public function edit(string $id)
     {
         $this->authorize('producto-edit'); 
+        $categorias = Categoria::all();
         $registro=Producto::findOrFail($id);
-        return view('producto.action', compact('registro'));
+        return view('producto.action', compact('registro','categorias'));
     }
 
     /**
@@ -86,6 +91,7 @@ class ProductoController extends Controller
         $registro->codigo=$request->input('codigo');
         $registro->nombre=$request->input('nombre');
         $registro->precio=$request->input('precio');
+        $registro->categoria_id = $request->input('categoria_id');
         $registro->descripcion=$request->input('descripcion');
         $sufijo=strtolower(Str::random(2));
         $image = $request->file('imagen');
