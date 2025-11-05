@@ -94,7 +94,7 @@
 
                             @can('categoria-list')
                                 <li class="nav-item">
-                                    <a href="{{ route('categorias.index') }}" class="nav-link" id="itemCategoria">
+                                    <a href="{{ route('categoria.index') }}" class="nav-link" id="itemCategoria">
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p>Categorías</p>
                                     </a>

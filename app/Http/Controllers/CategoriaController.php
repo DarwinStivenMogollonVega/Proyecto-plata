@@ -47,7 +47,7 @@ class CategoriaController extends Controller
         $registro->descripcion = $request->input('description');
         $registro->save();
           
-        return redirect()->route('categorias.index')
+        return redirect()->route('categoria.index')
             ->with('mensaje', 'registro ' . $registro->nombre . ' agregado correctamente');
             
             dd('Guardado', $registro);
@@ -76,7 +76,7 @@ class CategoriaController extends Controller
         $registro->descripcion = $request->input('description');
         $registro->save();
 
-        return redirect()->route('categorias.index')
+        return redirect()->route('categoria.index')
             ->with('mensaje', 'Registro ' . $registro->nombre . ' actualizado correctamente');
     }
 
@@ -91,7 +91,7 @@ class CategoriaController extends Controller
         $registro->delete();
 
         // 🔹 Corrige el nombre de la ruta
-        return redirect()->route('categorias.index')
+        return redirect()->route('categoria.index')
             ->with('mensaje', 'Registro ' . $registro->nombre . ' eliminado correctamente');
     }
 }

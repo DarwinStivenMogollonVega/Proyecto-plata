@@ -13,7 +13,7 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div>
-                            <form action="{{route('categorias.index')}}" method="get">
+                            <form action="{{route('categoria.index')}}" method="get">
                                 <div class="input-group">
                                     <input name="texto" type="text" class="form-control" value="{{$texto}}"
                                         placeholder="Ingrese texto a buscar">
@@ -21,7 +21,7 @@
                                         <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i>
                                             Buscar</button>
                                         @can('categoria-create')
-                                        <a href="{{route('categorias.create')}}" class="btn btn-primary"> Nuevo</a>
+                                        <a href="{{route('categoria.create')}}" class="btn btn-primary"> Nuevo</a>
                                         @endcan
                                     </div>
                                 </div>
@@ -53,7 +53,7 @@
                                             <tr class="align-middle">
                                                 <td>
                                                     @can('categoria-edit')
-                                                    <a href="{{route('categorias.edit', $reg->id)}}" class="btn btn-info btn-sm"><i class="bi bi-pencil-fill"></i></a>&nbsp;
+                                                    <a href="{{route('categoria.edit', $reg->id)}}" class="btn btn-info btn-sm"><i class="bi bi-pencil-fill"></i></a>
                                                     @endcan
                                                     @can('categoria-delete')
                                                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
