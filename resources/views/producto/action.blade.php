@@ -51,10 +51,9 @@
                                     @enderror
                                 </div>
 
-                                <!-- Categoría -->
-                                                              <div class="col-md-3 mb-3">
+                                <!-- Categoría --><div class="col-md-3 mb-3">
     <label for="categoria_id" class="form-label">Categoría</label>
-    <select name="id" id="id" class="form-control" required>
+    <select name="categoria_id" id="categoria_id" class="form-control" required>
         <option value="">Seleccione una categoría</option>
         @foreach($categorias as $categoria)
             <option value="{{ $categoria->id }}"
@@ -67,9 +66,7 @@
         <small class="text-danger">{{ $message }}</small>
     @enderror
 </div>
-
                             <div class="row">
-                                <!-- Descripción -->
                                 <div class="col-md-6 mb-3">
                                     <label for="descripcion" class="form-label">Descripción</label>
                                     <textarea name="descripcion" class="form-control" id="descripcion" rows="4">{{ old('descripcion', $registro->descripcion ?? '') }}</textarea>

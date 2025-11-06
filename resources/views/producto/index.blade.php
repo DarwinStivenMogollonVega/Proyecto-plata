@@ -70,12 +70,12 @@
                                                 <td>{{$reg->precio}}</td>
                         
                         <td>
-     @if($reg->categoria)
+    @if($reg->categoria)
         <span class="badge bg-primary">{{ $reg->categoria->nombre }}</span>
-     @else
+    @else
         <span class="badge bg-secondary">Sin Categoría</span>
-     @endif
-                       </td>
+    @endif
+</td>
                                                 <td>
                                                 @if($reg->imagen)
                                                     <img src="{{ asset('uploads/productos/' . $reg->imagen) }}" alt="{{ $reg->nombre }}" style="max-width: 150px; height: auto;">
